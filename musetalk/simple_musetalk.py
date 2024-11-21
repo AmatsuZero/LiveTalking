@@ -15,6 +15,7 @@ from face_alignment import NetworkSize
 from mmpose.apis import inference_topdown, init_model
 from mmpose.structures import merge_data_samples
 from tqdm import tqdm
+from util import available_device
 
 try:
     from utils.face_parsing import FaceParsing
@@ -324,7 +325,7 @@ def create_musetalk_human(file, avatar_id):
 
 
 # initialize the mmpose model
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = available_device()
 fa = FaceAlignment(1, flip_input=False, device=device)
 config_file = os.path.join(current_dir, 'utils/dwpose/rtmpose-l_8xb32-270e_coco-ubody-wholebody-384x288.py')
 checkpoint_file = os.path.abspath(os.path.join(current_dir, '../models/dwpose/dw-ll_ucoco_384.pth'))

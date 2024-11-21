@@ -4,6 +4,7 @@ import argparse
 from .nerf_triplane.provider import NeRFDataset,NeRFDataset_Test
 from .nerf_triplane.utils import *
 from .nerf_triplane.network import NeRFNetwork
+from util import available_device
 
 # torch.autograd.set_detect_anomaly(True)
 # Close tf32 features. Fix low numerical accuracy on rtx30xx gpu.
@@ -147,7 +148,7 @@ if __name__ == '__main__':
     
     seed_everything(opt.seed)
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device(available_device())
 
     model = NeRFNetwork(opt)
 

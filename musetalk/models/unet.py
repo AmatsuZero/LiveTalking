@@ -8,6 +8,7 @@ import sys
 import time
 import numpy as np
 import os
+from util import available_device
 
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model=384, max_len=5000):
@@ -36,7 +37,7 @@ class UNet():
             unet_config = json.load(f)
         self.model = UNet2DConditionModel(**unet_config)
         self.pe = PositionalEncoding(d_model=384)
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device(available_device())
         weights = torch.load(model_path) if torch.cuda.is_available() else torch.load(model_path, map_location=self.device)
         self.model.load_state_dict(weights)
         if use_float16:

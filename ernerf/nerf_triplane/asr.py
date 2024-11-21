@@ -10,7 +10,7 @@ import resampy
 
 from queue import Queue
 from threading import Thread, Event
-
+from util import available_device
 
 def _read_frame(stream, exit_event, queue, chunk):
 
@@ -39,7 +39,7 @@ class ASR:
 
         self.play = opt.asr_play
 
-        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.device = available_device()
         self.fps = opt.fps # 20 ms per frame
         self.sample_rate = 16000
         self.chunk = self.sample_rate // self.fps # 320 samples per chunk (20ms * 16000 / 1000)

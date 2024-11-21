@@ -7,7 +7,7 @@ from glob import glob
 import torch
 import pickle
 import face_detection
-
+from util import available_device
 
 parser = argparse.ArgumentParser(description='Inference code to lip-sync videos in the wild using Wav2Lip models')
 parser.add_argument('--img_size', default=96, type=int)
@@ -21,7 +21,7 @@ parser.add_argument('--face_det_batch_size', type=int,
 					help='Batch size for face detection', default=16)
 args = parser.parse_args()
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = available_device()
 print('Using {} for inference.'.format(device))
 
 def osmakedirs(path_list):

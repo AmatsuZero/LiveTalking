@@ -28,6 +28,7 @@ from museasr import MuseASR
 import asyncio
 from av import AudioFrame, VideoFrame
 from basereal import BaseReal
+from util import available_device
 
 from tqdm import tqdm
 def read_imgs(img_list):
@@ -51,7 +52,7 @@ def inference(render_event,batch_size,latents_out_path,audio_feat_queue,audio_ou
               ): #vae, unet, pe,timesteps
     
     vae, unet, pe = load_diffusion_model()
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device(available_device())
     timesteps = torch.tensor([0], device=device)
     pe = pe.half()
     vae.vae = vae.vae.half()

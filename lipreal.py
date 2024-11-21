@@ -29,8 +29,9 @@ from basereal import BaseReal
 #from imgcache import ImgCache
 
 from tqdm import tqdm
+from util import available_device
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = available_device()
 print('Using {} for inference.'.format(device))
 
 def _load(checkpoint_path):

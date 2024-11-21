@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 from PIL import Image
 import os
+from util import available_device
 
 class VAE():
     """
@@ -23,7 +24,7 @@ class VAE():
         self.model_path = model_path
         self.vae = AutoencoderKL.from_pretrained(self.model_path)
 
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device(available_device())
         self.vae.to(self.device)
 
         if use_float16:

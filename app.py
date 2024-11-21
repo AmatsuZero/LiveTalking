@@ -25,7 +25,7 @@ import argparse
 import shutil
 import asyncio
 import string
-
+from util import available_device
 
 app = Flask(__name__)
 sockets = Sockets(app)
@@ -481,7 +481,7 @@ if __name__ == '__main__':
         seed_everything(opt.seed)
         print(opt)
 
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        device = torch.device(available_device())
         model = NeRFNetwork(opt)
 
         criterion = torch.nn.MSELoss(reduction='none')

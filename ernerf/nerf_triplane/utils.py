@@ -30,6 +30,7 @@ from torch_ema import ExponentialMovingAverage
 from packaging import version as pver
 import imageio
 import lpips
+from util import available_device
 
 def custom_meshgrid(*args):
     # ref: https://pytorch.org/docs/stable/generated/torch.meshgrid.html?highlight=meshgrid#torch.meshgrid
