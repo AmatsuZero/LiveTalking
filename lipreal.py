@@ -179,7 +179,7 @@ class LipReal(BaseReal):
     # def __loadmodels(self):
     #     # load model weights
     #     self.audio_processor, self.vae, self.unet, self.pe = load_all_model()
-    #     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # device = torch.device(available_device())
     #     self.timesteps = torch.tensor([0], device=device)
     #     self.pe = self.pe.half()
     #     self.vae.vae = self.vae.vae.half()

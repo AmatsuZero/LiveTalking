@@ -172,7 +172,7 @@ class MuseReal(BaseReal):
         # load model weights
         self.audio_processor= load_audio_model()
         # self.audio_processor, self.vae, self.unet, self.pe = load_all_model()
-        # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # device = torch.device(available_device())
         # self.timesteps = torch.tensor([0], device=device)
         # self.pe = self.pe.half()
         # self.vae.vae = self.vae.vae.half()

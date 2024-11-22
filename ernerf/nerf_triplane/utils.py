@@ -443,7 +443,7 @@ class LPIPSMeter:
         self.N = 0
         self.net = net
 
-        self.device = device if device is not None else torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = device if device is not None else torch.device(available_device())
         self.fn = lpips.LPIPS(net=net).eval().to(self.device)
 
     def clear(self):
@@ -619,7 +619,14 @@ class Trainer(object):
         self.flip_init_lips = self.opt.init_lips
         self.time_stamp = time.strftime("%Y-%m-%d_%H-%M-%S")
         self.scheduler_update_every_step = scheduler_update_every_step
-        self.device = device if device is not None else torch.device(f'cuda:{local_rank}' if torch.cuda.is_available() else 'cpu')
+        if device is not None:
+            self.device = torch.device(device)
+        elif torch.backends.mps.is_available():
+            self.device = torch.device('mps')
+        elif torch.cuda.is_available():
+            self.device = torch.device(f'cuda:{local_rank}')
+        else:
+            self.device = torch.device('cpu')
         self.console = Console()
 
         model.to(self.device)
